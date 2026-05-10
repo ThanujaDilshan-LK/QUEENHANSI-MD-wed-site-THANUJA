@@ -1,0 +1,14 @@
+{
+  "name": "queen-hansi-md-site-THANUJA",
+  "version": "1.0.0",
+  "description": "Deployment web panel for QUEENHANSI-MD",
+  "main": "index.html",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "author": "THANUJADILSHAN",
+  "license": "MIT"
+}
