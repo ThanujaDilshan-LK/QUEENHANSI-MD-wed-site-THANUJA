@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUEENHANSI-MD DEPLOY</title>
+    <style>
+        :root {
+            --rgb-speed: 3s;
+        }
+
+        body {
+            background-color: #050505;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* පසුබිමේ පාවෙන භූත රූප (Floating Ghosts) */
+        .background-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .ghost {
+            position: absolute;
+            font-size: 2rem;
+            animation: float 10s infinite linear;
+            opacity: 0.3;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: translateY(-10vh) translateX(50px); opacity: 0; }
+        }
+
+        /* Launcher Name Styles */
+        .launcher-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px #ff00ff;
+            color: #fff;
+        }
+
+        /* RGB Border Animation */
+        .rgb-btn {
+            background: #111;
+            border: 4px solid;
+            border-image: linear-gradient(to right, red, orange, yellow, green, cyan, blue, violet) 1;
+            animation: borderRotate var(--rgb-speed) infinite linear;
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            width: 250px;
+            transition: 0.3s;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+        }
+
+        @keyframes borderRotate {
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        .rgb-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Container for sections */
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hidden { display: none; }
+
+        input {
+            background: #222;
+            border: 2px solid;
+            border-image: linear-gradient(to right, cyan, blue) 1;
+            animation: borderRotate 5s infinite linear;
+            padding: 12px;
+            color: white;
+            border-radius: 5px;
+            outline: none;
+            width: 80%;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        h1 {
+            background: linear-gradient(to right, #ff0080, #8e2de2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-effect" id="bg"></div>
+
+    <div class="launcher-name">THANUJADILSHAN™</div>
+
+    <div class="container" id="main-menu">
+        <h1>QUEENHANSI-MD</h1>
+        <p>Select an option to get started</p>
+        <button class="rgb-btn" onclick="showDeploy()">DEPLOY</button><br>
+        <button class="rgb-btn" onclick="showSession()">SESSION</button>
+    </div>
+
+    <div class="container hidden" id="deploy-panel">
+        <h2>Deploy Panel</h2>
+        <a href="https://dashboard.render.com/" class="rgb-btn">RENDER</a><br>
+        <a href="https://huggingface.co/spaces" class="rgb-btn">HUGGING FACE</a><br>
+        <a href="https://www.heroku.com/" class="rgb-btn">HEROKU</a><br>
+        <button onclick="goBack()" style="background:none; color:grey; border:none; cursor:pointer; margin-top:10px;">Back</button>
+    </div>
+
+    <div class="container hidden" id="session-panel">
+        <h2>Get Session ID</h2>
+        <button class="rgb-btn" onclick="showPairCode()">PAIR CODE</button><br>
+        <button class="rgb-btn" onclick="location.href='YOUR_QR_LINK_HERE'">QR CODE</button><br>
+        <button onclick="goBack()" style="background:none; color:grey; border:none; cursor:pointer; margin-top:10px;">Back</button>
+    </div>
+
+    <div class="container hidden" id="pair-panel">
+        <h2>Pairing Code</h2>
+        <input type="text" placeholder="+947xxxxxxxx" id="numberInput">
+        <br>
+        <button class="rgb-btn" onclick="alert('Connecting...')">GET CODE</button><br>
+        <button onclick="goBackToSession()" style="background:none; color:grey; border:none; cursor:pointer; margin-top:10px;">Back</button>
+    </div>
+
+    <script>
+        // පසුබිමේ හොල්මන් පාවෙන ඉෆෙක්ට් එක සෑදීම
+        const bg = document.getElementById('bg');
+        for (let i = 0; i < 15; i++) {
+            let ghost = document.createElement('div');
+            ghost.className = 'ghost';
+            ghost.innerText = '👻';
+            ghost.style.left = Math.random() * 100 + 'vw';
+            ghost.style.animationDelay = Math.random() * 5 + 's';
+            ghost.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            bg.appendChild(ghost);
+        }
+
+        // Navigation Functions
+        function showDeploy() {
+            document.getElementById('main-menu').classList.add('hidden');
+            document.getElementById('deploy-panel').classList.remove('hidden');
+        }
+
+        function showSession() {
+            document.getElementById('main-menu').classList.add('hidden');
+            document.getElementById('session-panel').classList.remove('hidden');
+        }
+
+        function showPairCode() {
+            document.getElementById('session-panel').classList.add('hidden');
+            document.getElementById('pair-panel').classList.remove('hidden');
+        }
+
+        function goBack() {
+            document.getElementById('deploy-panel').classList.add('hidden');
+            document.getElementById('session-panel').classList.add('hidden');
+            document.getElementById('main-menu').classList.remove('hidden');
+        }
+
+        function goBackToSession() {
+            document.getElementById('pair-panel').classList.add('hidden');
+            document.getElementById('session-panel').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
